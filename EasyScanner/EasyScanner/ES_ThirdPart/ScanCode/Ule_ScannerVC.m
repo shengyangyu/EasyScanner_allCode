@@ -31,7 +31,10 @@
  *  获取相册图片 View
  */
 @property (nonatomic, strong) UIImagePickerController *mImagePicker;
-
+/**
+ *  相册 按钮
+ */
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *navRightBtn;
 @end
 
 @implementation Ule_ScannerVC
@@ -46,13 +49,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[self titleLabel:@"扫描条形码"];
     self.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
     if (IOS7_OR_LATER) {
         self.mType = UleScannerTypeSystem;
     }else {
         self.mType = UleScannerTypeNone;
         [self HUDShow:@"当前设备不支持!" delay:1.0 dothing:YES];
+        self.navRightBtn.enabled = YES;
     }
     //加载UI
     [self customerUI];
@@ -302,6 +305,7 @@
 #pragma mark -选取相册图片
 - (IBAction)choicePhotos:(UIBarButtonItem *)sender {
     
+    [self HUDShow:@"相册获取中"];
     // 跳转到相册页面
     NSUInteger sourceType = 0;
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -313,6 +317,7 @@
     self.mImagePicker.delegate = self;
     self.mImagePicker.sourceType = sourceType;
     [self presentViewController:self.mImagePicker animated:YES completion:^{
+        [self HUDHidden];
     }];
 }
 
@@ -350,8 +355,9 @@
                                 hints:hints
                                 error:&error];
     if (result) {
-        NSString *contents = result.text;
-        NSLog(@"相册图片contents == %@",contents);
+        //NSString *contents = result.text;
+        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"解析结果" message:result.text delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alter show];
     }
     else {
         UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"解析失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -359,15 +365,11 @@
     }
 }
 
-- (void)showInfoWithMessage:(NSString *)message andTitle:(NSString *)title {
-    
-    
-}
-
 #pragma mark -Ule_ScannerDelegate
 - (void)scannerViewDidLoad {
     // 隐藏加载view
     [HUD hide:YES];
+    self.navRightBtn.enabled = YES;
 }
 
 @end

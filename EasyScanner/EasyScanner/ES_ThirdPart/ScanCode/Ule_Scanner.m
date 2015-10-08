@@ -327,6 +327,7 @@ CGFloat const kUleFocalPointOfInterestY = 0.5;
     
     AVCaptureMetadataOutput *captureOutput = [[AVCaptureMetadataOutput alloc] init];
     [captureOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    // 限制扫描区域 上左下右
     [captureOutput setRectOfInterest:[self getReaderViewBoundsWithSize:CGSizeMake(ScreenWidth, SCan_Size)]];
     if ([newSession canAddOutput:captureOutput]) {
         [newSession addOutput:captureOutput];
@@ -342,9 +343,16 @@ CGFloat const kUleFocalPointOfInterestY = 0.5;
     
     return newSession;
 }
-
+/*
+1、这个CGRect参数和普通的Rect范围不太一样，它的四个值的范围都是0-1，表示比例。
+2、经过测试发现，这个参数里面的x对应的恰恰是距离左上角的垂直距离，y对应的是距离左上角的水平距离。
+3、宽度和高度设置的情况也是类似。
+4、举个例子如果我们想让扫描的处理区域是屏幕的下半部分，我们这样设置
+output.rectOfInterest=CGRectMake(0.5,0,0.5, 1);
+*/
 - (CGRect)getReaderViewBoundsWithSize:(CGSize)asize {
-    return CGRectMake(SCan_Offset_y / ScreenHigh, ((ScreenWidth - asize.width) / 2.0) / ScreenWidth, asize.height / ScreenHigh, asize.width / ScreenWidth);
+    CGRect tmp = CGRectMake ((SCan_Offset_y+SCan_Origin_y) / ScreenHigh ,(ScreenWidth-asize.width) / ScreenWidth, asize.height / ScreenHigh , asize.width / ScreenWidth);
+    return tmp;
 }
 
 - (AVCaptureDeviceInput *)deviceInputForCaptureDevice:(AVCaptureDevice *)captureDevice {

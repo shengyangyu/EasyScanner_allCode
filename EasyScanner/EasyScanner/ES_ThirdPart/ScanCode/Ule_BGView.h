@@ -10,6 +10,7 @@
 
 #define ScreenWidth ([[UIScreen mainScreen] bounds].size.width)
 #define ScreenHigh  ([[UIScreen mainScreen] bounds].size.height)
+#define SCan_Origin_y (64.0)
 #define SCan_Offset_y (64.0)
 #define SCan_Offset_x (50.0)
 #define SCan_Size (ScreenWidth-SCan_Offset_x*2)

@@ -7,8 +7,17 @@
 //
 
 #import "CreateCodeInput.h"
+#import "CreateCodeResult.h"
 
 @interface CreateCodeInput ()
+/**
+ *  文本长度
+ */
+@property (weak, nonatomic) IBOutlet UILabel *textLength;
+/**
+ *  文本内容
+ */
+@property (weak, nonatomic) IBOutlet UITextView *codeText;
 
 @end
 
@@ -17,6 +26,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+#pragma mark -生成二维码
+- (IBAction)createCode:(UIBarButtonItem *)sender {
+    if(self.codeText && self.codeText.text.length) {
+        [self performSegueWithIdentifier:@"CreateCodeResult" sender:self];
+    }
+    else {
+        [self HUDShow:@"请输入文本内容" delay:1.5f];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    CreateCodeResult *vc = segue.destinationViewController;
+    vc.m_Data = [NSString stringWithFormat:@"%@",self.codeText.text];
 }
 
 - (void)didReceiveMemoryWarning {

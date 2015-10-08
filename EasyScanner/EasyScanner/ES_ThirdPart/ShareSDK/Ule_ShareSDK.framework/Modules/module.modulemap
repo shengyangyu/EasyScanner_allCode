@@ -1,0 +1,6 @@
+framework module Ule_ShareSDK {
+  umbrella header "Ule_ShareSDK.h"
+
+  export *
+  module * { export * }
+}

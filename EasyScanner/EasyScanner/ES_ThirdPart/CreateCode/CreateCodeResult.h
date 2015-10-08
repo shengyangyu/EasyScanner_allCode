@@ -10,4 +10,7 @@
 
 @interface CreateCodeResult : ES_BaseVC
 
+// 获取值
+@property (nonatomic, strong) NSString *m_Data;
+
 @end
