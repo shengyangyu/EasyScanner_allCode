@@ -110,24 +110,20 @@
 			<string>scanVCKey</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>扫码</string>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>UIApplicationShortcutIconTypePlay</string>
-			<key>UIApplicationShortcutIconType</key>
-			<string>UIApplicationShortcutIconTypePlay</string>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeSearch</string>
 			<key>UIApplicationShortcutItemSubtitle</key>
-			<string>去扫码</string>
+			<string></string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemType</key>
 			<string>createVCKey</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>生成码</string>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>UIApplicationShortcutIconTypePlay</string>
-			<key>UIApplicationShortcutIconType</key>
+			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypePlay</string>
 			<key>UIApplicationShortcutItemSubtitle</key>
-			<string>去生成码</string>
+			<string></string>
 		</dict>
 	</array>
 </dict>

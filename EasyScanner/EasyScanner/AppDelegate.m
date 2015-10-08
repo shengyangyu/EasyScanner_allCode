@@ -32,15 +32,6 @@ static NSString *applicationShortcutUserInfoIconKey = @"applicationShortcutUserI
     [[Ule_ShareView shareViewManager] registWeChatForAppKey:WXAPPID];
     //[[Ule_ShareView shareViewManager] registQQForAppKey:QQZAPPID andDelegate:self];
     [[Ule_ShareView shareViewManager] registSinaForAppKey:WEIBOkAppKey enableDebugMode:NO];
-    /**
-     *  判断支持 Quick Actions
-     */
-    BOOL launchedFromShortCut = NO;
-    UIApplicationShortcutItem *mshort = launchOptions[UIApplicationLaunchOptionsShortcutItemKey];
-    if (mshort) {
-        launchedFromShortCut = YES;
-        [self handleShortCutItem:mshort];
-    }
     // 动态添加 quick actions
     // application.shortcutItems = @[[[UIApplicationShortcutItem alloc] initWithType:@"Green" localizedTitle:@"dynamic shortcut 1, green"], [[UIApplicationShortcutItem alloc] initWithType:@"Red" localizedTitle:@"dynamic shortcut 1, red"]];
     
@@ -82,7 +73,7 @@ static NSString *applicationShortcutUserInfoIconKey = @"applicationShortcutUserI
 
 #pragma mark -iOS9 Quick Actions
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void(^)(BOOL succeeded))completionHandler {
-    
+
     completionHandler([self handleShortCutItem:shortcutItem]);
 }
 
